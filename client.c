@@ -12,7 +12,7 @@ void    send_bits(int pid, char c)
     i = 7;
     while(i >= 0)
     {
-        if (((c >> i) & 1) == 0)
+        if (((c >> i) & 1) == 1)
             kill(pid, SIGUSR1);
         else
             kill(pid, SIGUSR2);
