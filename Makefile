@@ -8,10 +8,10 @@ SERVER_NAME = server
 all: $(CLIENT_NAME) $(SERVER_NAME)
 
 $(CLIENT_NAME): $(CLIENT_SRCS) 
-	$(CC) $(CFLAGS) -o $@ $(CLIENT_SRCS) -lft
+	$(CC) $(CFLAGS) -o $@ $(CLIENT_SRCS)
 
-$(SERVER_NAME): $(SERVER_SRCS) $(LIBFT_ARCHIVE)
-	$(CC) $(CFLAGS) -o $@ $(SERVER_SRCS) -L$(LIBFT_PATH) -lft
+$(SERVER_NAME): $(SERVER_SRCS)
+	$(CC) $(CFLAGS) -o $@ $(SERVER_SRCS) -L$(LIBFT_PATH)
 
 clean:
 	$(MAKE) -C $(LIBFT_PATH) clean
