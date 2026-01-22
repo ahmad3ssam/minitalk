@@ -43,7 +43,7 @@ int main()
     g_msg = ft_itoa(getpid());
     ft_putendl_fd(g_msg, 1);
     free(g_msg);
-    g_msg = NULL;
+    g_msg = ft_strdup("");
     segment.sa_sigaction = handler;
     segment.sa_flags = SA_SIGINFO ;
     sigemptyset(&segment.sa_mask);
