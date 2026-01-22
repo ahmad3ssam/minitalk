@@ -1,9 +1,9 @@
 #include <sys/types.h>
 #include <unistd.h>
 #include <stdio.h>
-// #include <sys/types.h>
 #include <signal.h>
 #include <stdlib.h>
+#include "./libft/libft.h"
 
 int    g_ack;
 
@@ -40,33 +40,28 @@ void    send_message(int pid, char *message)
     while (message[i])
     {
         send_bits(pid, message[i]);
-        write(1,&message[i],1);
         i++;
     }
     if (message[i] == '\0')
         send_bits(pid, '\0');
-    // kill(pid, SIGSTOP);
-
 }
 
 int main(int argc, char **argv)
 {
-    if (argc < 3)
+    int     pid;
+
+    if (argc != 3)
         return (0);
-    int pid =atoi(argv[1]);
-    write(1,"y\n",2);
+    pid = ft_atoi(argv[1]);
     if (kill(pid, 0) == -1)
+    {
+        write(1, "Invalid PID\n", 13);
         return (-1);
-    write(1,"y\n",2);
+    }
     signal(SIGUSR1, ack_handler);
     send_message(pid, argv[2]);
     return (0);
 }
 
-cc -Wall -Wextra -Werror ./libft/libft.a -o server server.o
-/usr/bin/ld: server.o: in function `handler':
-server.c:(.text+0x94): undefined reference to `ft_strjoin'
-/usr/bin/ld: server.c:(.text+0xe7): undefined reference to `ft_strjoin'
-collect2: error: ld returned 1 exit status
-make: *** [Makefile:24: server] Error 1
+
 

@@ -21,10 +21,10 @@ $(LIBFT):
 	$(MAKE) -C ./libft
 
 $(SERVER_NAME): $(SERVER_OBJS)
-	$(CC) $(CFLAGS) $(LIBFT) -o $@ $^
+	$(CC) $(CFLAGS)  -o $@ $^ $(LIBFT)
 
 $(CLIENT_NAME): $(CLIENT_OBJS)
-	$(CC) $(CFLAGS) $(LIBFT) -o $@ $^
+	$(CC) $(CFLAGS)  -o $@ $^ $(LIBFT)
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
