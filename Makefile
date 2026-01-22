@@ -1,24 +1,40 @@
+.PHONY: all clean fclean re
+
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
-CLIENT_SRCS = client.c
-SERVER_SRCS = server.c
+
 CLIENT_NAME = client
 SERVER_NAME = server
+LIBFT = ./libft/libft.a
 
-all: $(CLIENT_NAME) $(SERVER_NAME)
+MAKE = make
 
-$(CLIENT_NAME): $(CLIENT_SRCS) 
-	$(CC) $(CFLAGS) -o $@ $(CLIENT_SRCS)
+CLIENT_SRCS = client.c
+SERVER_SRCS = server.c
 
-$(SERVER_NAME): $(SERVER_SRCS)
-	$(CC) $(CFLAGS) -o $@ $(SERVER_SRCS) -L$(LIBFT_PATH)
+CLIENT_OBJS = $(CLIENT_SRCS:.c=.o)
+SERVER_OBJS = $(SERVER_SRCS:.c=.o)
+
+all: $(LIBFT) $(SERVER_NAME) $(CLIENT_NAME)
+
+$(LIBFT):
+	$(MAKE) -C ./libft
+
+$(SERVER_NAME): $(SERVER_OBJS)
+	$(CC) $(CFLAGS) $(LIBFT) -o $@ $^
+
+$(CLIENT_NAME): $(CLIENT_OBJS)
+	$(CC) $(CFLAGS) $(LIBFT) -o $@ $^
+
+%.o: %.c
+	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	$(MAKE) -C $(LIBFT_PATH) clean
+	rm -f $(CLIENT_OBJS) $(SERVER_OBJS)
+	$(MAKE) -C ./libft clean
 
 fclean: clean
 	rm -f $(CLIENT_NAME) $(SERVER_NAME)
-
+	$(MAKE) -C ./libft fclean
 re: fclean all
 
-.PHONY: all clean fclean re bonus

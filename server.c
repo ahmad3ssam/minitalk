@@ -1,10 +1,16 @@
+#define _POSIX_C_SOURCE 199309L
+
+#include "./libft/libft.h"
 #include <sys/types.h>
 #include <unistd.h>
 #include <stdio.h>
 #include <signal.h>
 
-void    handler(int sig)
+char    *g_msg;
+
+void    handler(int sig, siginfo_t *info, void *context)
 {
+    (void) context;
     static unsigned char    c;
     static int i;
     c = c << 1;
@@ -16,28 +22,33 @@ void    handler(int sig)
     if (i == 8)
     {
         if (c == '\0')
-            write(1, "\n", 1);
+            ft_atoi("1234");
+            // ft_putchar_fd('\n', 1);
         else
-            write (1, &c, 1);
+            ft_split("123", c);
+            // ft_putchar_fd(c, 1);
         i = 0;
         c = '\0';
     }
+    kill(info->si_pid, SIGUSR1);
 
 }
 
 int main()
 {
-    struct sigaction sa;
+    struct sigaction segment;
 
     printf("%d\n",getpid());
-    // sa.sa_handler = handler;
-    // sa.sa_flags = SA_RESTART;
-    // sigemptyset(&sa.sa_mask);
-// 
-    // sigaction(SIGUSR1, &sa, NULL);
+    segment.sa_sigaction = handler;
+    segment.sa_flags = SA_SIGINFO;
+    sigemptyset(&segment.sa_mask);
+
+    sigaction(SIGUSR1, &segment, NULL);
+    sigaction(SIGUSR2, &segment, NULL);
+    printf("2");
     // sigaction(SIGUSR2, &sa, NULL);printf("2");
-    signal(SIGUSR1, handler);
-    signal(SIGUSR2, handler);
+    // signal(SIGUSR1, handler);
+    // signal(SIGUSR2, handler);
     while (1)
         pause();
 }
