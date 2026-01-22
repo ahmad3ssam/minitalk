@@ -62,3 +62,11 @@ int main(int argc, char **argv)
     send_message(pid, argv[2]);
     return (0);
 }
+
+cc -Wall -Wextra -Werror ./libft/libft.a -o server server.o
+/usr/bin/ld: server.o: in function `handler':
+server.c:(.text+0x94): undefined reference to `ft_strjoin'
+/usr/bin/ld: server.c:(.text+0xe7): undefined reference to `ft_strjoin'
+collect2: error: ld returned 1 exit status
+make: *** [Makefile:24: server] Error 1
+
