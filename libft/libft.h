@@ -6,7 +6,7 @@
 /*   By: ahhammad <ahhammad@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/18 17:58:22 by vtouffet          #+#    #+#             */
-/*   Updated: 2026/01/22 20:35:10 by ahhammad         ###   ########.fr       */
+/*   Updated: 2026/01/23 14:34:45 by ahhammad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@
 # include <string.h>
 # include <unistd.h>
 
-// int		ft_islower(int c);
-// int		ft_isupper(int c);
 int		ft_isalpha(int c);
 int		ft_isdigit(int c);
 int		ft_isalnum(int c);
